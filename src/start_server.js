@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const { fetchLog, pushLog, createPool, jsonifyData, commonArgs } = require("./common")
+const { fetchLog, pushLog, createPool, jsonifyData, commonArgs } = require("./common");
 const express = require("express");
 const app = express();
 const cors = require("cors")
@@ -39,14 +39,14 @@ function main() {
     const pool = createPool(options.workers, options.log_format, options.steam64)
     console.log("Starting server with options:", options)
     app.use(cors())
-    app.use(express.urlencoded({ limit: options.request_size }));
+    app.use(express.urlencoded({ limit: options.request_size, extended: false }));
     app.post("/parse/", (req, res) => {
         (async () => {
             const lines = req.body.split("\n");
             return pushLog(pool, lines);
         })()
             .then(result => res.send(result))
-            .catch(err => res.send(err));
+            .catch(err => res.status(404).send(err));
     })
     app.get("/id/:logId", (req, res) => {
         (async () => {
@@ -57,7 +57,7 @@ function main() {
             return data;
         })()
             .then(result => res.send(result))
-            .catch(err => res.send(err));
+            .catch(err => res.status(404).send(err));
     })
     app.listen(options.port, () => {
         console.log(`Server is listening on port ${options.port}`);

@@ -3,8 +3,8 @@
   "version": "1.0.1",
   "description": "CLI for parsing logs",
   "bin": {
-    "parse-log": "/src/parse_log.js",
-    "start-server": "/src/start_server.js"
+    "parse-log": "./src/parse_log.js",
+    "start-server": "./src/start_server.js"
   },
   "scripts": {
     "debug-parse": "node ./src/parse_log.js",
@@ -17,6 +17,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/TheBv/logstf-parser-cli.git"
+  },
+  "pkg": {
+    "scripts": "./src"
   },
   "author": "Bv",
   "license": "ISC",

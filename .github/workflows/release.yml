@@ -1,0 +1,48 @@
+# This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Release package
+
+on: workflow_dispatch
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Install pkg
+      run: npm i -g pkg
+    - name: Build client
+      run: pkg . --output ./build/client/
+    - name: Prepare server
+      run: |
+        sed -i 's/"parse-log": ".\/src\/parse_log.js",/ /' package.json
+    - name: Build server
+      run: pkg . --output ./build/server/
+    - name: Rename Client Binaries
+      run: rename 's/^/client-/' ./build/client/*
+    - name: Rename Server Binaries
+      run: rename 's/^/server-/' ./build/server/*
+    - name: Move Client Binaries
+      run: mv ./build/client/* ./build/release
+    - name: Move Server Binaries
+      run: mv ./build/server/* ./build/release
+    - name: Upload assets to GitHub
+      uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        files: |
+          build/*
