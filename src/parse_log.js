@@ -8,15 +8,22 @@ const { fetchLog, pushLog, createPool, jsonifyData, commonArgs } = require("./co
 
 const optionDefinitions = [
     ...commonArgs,
-    { name: "file", alias: "f", multiple: true, type: String, description: "Files to be processed" },
-    { name: "dir", alias: "d", type: String, description: "The path to a folder of log files to be parsed" },
     {
-        name: "url", alias: "u", type: String, defaultValue: "https://logs.tf/logs/log_%s.log.zip",
-        description: "The main url path to fetch the log from. Default: https://logs.tf/logs/log_%s.log.zip"
+        name: "file", alias: "f", multiple: true, type: String,
+        description: "Files to be processed"
     },
-    { name: "id", alias: "i", multiple: true, type: String, description: "The logids to process" },
-
-    { name: "output", alias: "o", type: String, description: "Specifies the output folder. If none is specified it prints to console" }
+    {
+        name: "dir", alias: "d", type: String,
+        description: "The path to a folder of log files to be parsed"
+    },
+    {
+        name: "id", alias: "i", multiple: true, type: String,
+        description: "The logids to process"
+    },
+    {
+        name: "output", alias: "o", type: String,
+        description: "Specifies the output folder. If none is specified it prints to console"
+    }
 ]
 const sections = [
     {
