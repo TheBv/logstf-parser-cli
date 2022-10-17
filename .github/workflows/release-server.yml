@@ -25,6 +25,8 @@ jobs:
 
     - name: Install pkg
       run: npm i -g pkg
+    - name: Install dependencies
+      run: npm i -g
     - name: Prepare server
       run: |
         sed -i 's/"parse-log": ".\/src\/parse_log.js",/ /' package.json

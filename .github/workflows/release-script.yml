@@ -25,6 +25,8 @@ jobs:
 
     - name: Install pkg
       run: npm i -g pkg
+    - name: Install dependencies
+      run: npm i -g
     - name: Build client
       run: pkg . --output ./build/
     - name: Upload assets to GitHub
