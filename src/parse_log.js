@@ -93,7 +93,8 @@ function addPromise(promises, func) {
 }
 
 function writeOutput(jsonContent, fileName = undefined) {
-    jsonContent = jsonifyData(jsonContent);
+    if (!options.log_format)
+        jsonContent = jsonifyData(jsonContent);
     if (options.output) {
         fs.writeFileSync(`${options.output}/${fileName}.json`, JSON.stringify(jsonContent));
     }
