@@ -1,6 +1,6 @@
 {
   "name": "logstf-parser-cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "CLI for parsing logs",
   "bin": {
     "parse-log": "./src/parse_log.js",
@@ -30,7 +30,7 @@
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "jszip": "^3.10.0",
-    "logstf-parser": "^1.3.0",
+    "logstf-parser": "^1.4.0",
     "node-worker-threads-pool": "^1.5.1"
   }
 }
